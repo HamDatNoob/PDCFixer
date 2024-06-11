@@ -29,7 +29,7 @@ const PDCDownloadUrl = JenkinsUrl + FileName
 const PDCDir = "PodcrashPlay"
 
 const DefaultRAM = "2G"
-const JavaArgs = "-Dlog4j2.formatMsgNoLookups=true -XX:HeapDumpPath=MojangTricksIntelDriversForPerformance_javaw.exe_minecraft.exe.heapdump -Xmx%s -XX:+UnlockExperimentalVMOptions -XX:+UseG1GC -XX:G1NewSizePercent=20 -XX:G1ReservePercent=20 -XX:MaxGCPauseMillis=50 -XX:G1HeapRegionSize=32M -Dpdc.basedir=%s -Dpdc.autoupdater=false -Dpdc.discord.id=708747697452089394 -javaagent:%s -XX:CompileCommand=exclude,java/lang/invoke/LambdaForm$*.invoke*"
+const JavaArgs = "-Dlog4j2.formatMsgNoLookups=true -XX:HeapDumpPath=MojangTricksIntelDriversForPerformance_javaw.exe_minecraft.exe.heapdump -Xmx%s -XX:+UnlockExperimentalVMOptions -XX:+UseG1GC -XX:G1NewSizePercent=20 -XX:G1ReservePercent=20 -XX:MaxGCPauseMillis=50 -XX:G1HeapRegionSize=32M -Dpdc.basedir=\"%s\" -Dpdc.autoupdater=false -Dpdc.discord.id=708747697452089394 -javaagent:%s -XX:CompileCommand=exclude,java/lang/invoke/LambdaForm$*.invoke*"
 
 const GameOptions = "Competitive:true\ngames.mineplex:true\ngames.minestrike:true\ngames.bridges:true\ngames.dominate:true\ngames.hypixel:true\ngames.copsvscrims:true"
 

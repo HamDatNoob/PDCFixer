@@ -26,7 +26,7 @@ func CreateProfile(mcVersion string, baseVersion string, suffix string, profileV
 
 	pdcDir := path.Join(configDir, MinecraftDir[runtime.GOOS], PDCDir)
 
-	os.WriteFile(path.Join(pdcDir, "games.txt"), []byte(GameOptions), 0644)
+	os.WriteFile(path.Join(pdcDir, "games.txt"), []byte(GameOptions), os.ModePerm)
 
 	defer jsonFile.Close()
 	byteValue, _ := io.ReadAll(jsonFile)
@@ -36,6 +36,16 @@ func CreateProfile(mcVersion string, baseVersion string, suffix string, profileV
 
 	pdcFile := path.Join(pdcDir, MinecraftVersionsDir, fmt.Sprintf(FileName, mcVersion))
 
+	var agentPath string
+	switch runtime.GOOS {
+	case "solaris":
+		agentPath = pdcFile
+	case "linux":
+		agentPath = pdcFile
+	default:
+		agentPath = fmt.Sprintf("./%s/%s/%s", PDCDir, MinecraftVersionsDir, fmt.Sprintf(FileName, mcVersion))
+	}
+
 	podcrashProfile := Profile{
 		Name:          fmt.Sprintf(ProfileName, baseVersion, suffix),
 		Type:          ProfileType,
@@ -43,12 +53,12 @@ func CreateProfile(mcVersion string, baseVersion string, suffix string, profileV
 		LastUsed:      timestamp,
 		Icon:          ProfileIcon,
 		LastVersionId: profileVersion,
-		JavaArgs:      fmt.Sprintf(JavaArgs, DefaultRAM, pdcDir, pdcFile),
+		JavaArgs:      fmt.Sprintf(JavaArgs, DefaultRAM, pdcDir, agentPath),
 	}
 
 	profiles, _ := launcherProfiles["profiles"].(map[string]interface{})
 	profiles["podcrash-"+baseVersion+"-"+suffix] = podcrashProfile
 
 	jsonString, _ := json.MarshalIndent(launcherProfiles, "", "  ")
-	os.WriteFile(filePath, jsonString, 0644)
+	os.WriteFile(filePath, jsonString, os.ModePerm)
 }

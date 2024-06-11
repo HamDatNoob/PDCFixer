@@ -61,7 +61,7 @@ func DownloadOptifine(mcVersion string) {
 	body := string(bytes)
 	downloadUrl := strings.Split(strings.Split(body, "<a href='")[1], "'")[0]
 
-	file, _ := os.OpenFile(path.Join(tempDir, fmt.Sprintf(OptifineFile, mcVersion, OptifineVersion[mcVersion])), os.O_CREATE|os.O_WRONLY, 0644)
+	file, _ := os.OpenFile(path.Join(tempDir, fmt.Sprintf(OptifineFile, mcVersion, OptifineVersion[mcVersion])), os.O_CREATE|os.O_WRONLY, os.ModePerm)
 	defer file.Close()
 
 	dlUrl := OptifineUrl + downloadUrl
@@ -86,7 +86,7 @@ func InstallOptifine(mcVersion string) {
 		fmt.Sprintf(OptifineLibraryVersionDir, mcVersion, OptifineVersion[mcVersion]))
 	_, err := os.Stat(optifineLibPath)
 	if os.IsNotExist(err) {
-		os.MkdirAll(optifineLibPath, 0644)
+		os.MkdirAll(optifineLibPath, os.ModePerm)
 	}
 
 	fmt.Println("Installing Optifine...")
@@ -105,7 +105,7 @@ func InstallOptifine(mcVersion string) {
 	optifineLWDir := path.Join(configDir, MinecraftDir[runtime.GOOS], MinecraftLibrariesDir, OptifineLaunchwrapperDir)
 	_, err = os.Stat(optifineLWDir)
 	if os.IsNotExist(err) {
-		os.MkdirAll(optifineLWDir, 0644)
+		os.MkdirAll(optifineLWDir, os.ModePerm)
 	}
 
 	archive, _ := zip.OpenReader(optifineDlPath)
@@ -116,7 +116,7 @@ func InstallOptifine(mcVersion string) {
 	if err == nil {
 		stat, _ := launchwrapperArchive.Stat()
 
-		lwFile, _ := os.OpenFile(path.Join(optifineLWDir, OptifineLaunchwrapperFile), os.O_CREATE|os.O_WRONLY, 0644)
+		lwFile, _ := os.OpenFile(path.Join(optifineLWDir, OptifineLaunchwrapperFile), os.O_CREATE|os.O_WRONLY, os.ModePerm)
 		defer lwFile.Close()
 
 		bar := progressbar.DefaultBytes(
@@ -134,7 +134,7 @@ func InstallOptifine(mcVersion string) {
 	optifineVersionProfileDir := path.Join(configDir, MinecraftDir[runtime.GOOS], MinecraftVersionsDir, optifineVerDir)
 	_, err = os.Stat(optifineVersionProfileDir)
 	if os.IsNotExist(err) {
-		os.MkdirAll(optifineVersionProfileDir, 0644)
+		os.MkdirAll(optifineVersionProfileDir, os.ModePerm)
 	}
 
 	timestamp := time.Now().Format(time.RFC3339)
@@ -152,7 +152,7 @@ func InstallOptifine(mcVersion string) {
 		launchwrapper,
 	)
 
-	optifineVersionJsonFile, _ := os.OpenFile(path.Join(optifineVersionProfileDir, optifineVerDir+".json"), os.O_CREATE|os.O_WRONLY, 0644)
+	optifineVersionJsonFile, _ := os.OpenFile(path.Join(optifineVersionProfileDir, optifineVerDir+".json"), os.O_CREATE|os.O_WRONLY, os.ModePerm)
 	defer optifineVersionJsonFile.Close()
 	optifineVersionJsonFile.WriteString(optifineProfileJson)
 }
@@ -164,7 +164,7 @@ func DownloadJre() {
 	defer resp.Body.Close()
 
 	jrePath := path.Join(tempDir, "jre.zip")
-	file, _ := os.OpenFile(jrePath, os.O_CREATE|os.O_WRONLY, 0644)
+	file, _ := os.OpenFile(jrePath, os.O_CREATE|os.O_WRONLY, os.ModePerm)
 	defer file.Close()
 
 	bar := progressbar.DefaultBytes(
@@ -191,7 +191,7 @@ func DownloadJre() {
 			fmt.Sprintf("Extracting %s...", archiveFile.Name),
 		)
 
-		destinationFile, _ := os.OpenFile(path, os.O_CREATE|os.O_WRONLY, 0644)
+		destinationFile, _ := os.OpenFile(path, os.O_CREATE|os.O_WRONLY, os.ModePerm)
 		archiveItem, _ := archiveFile.Open()
 		io.Copy(io.MultiWriter(destinationFile, extractBar), archiveItem)
 
@@ -208,10 +208,10 @@ func DownloadLaunchwrapper() {
 	libPath := path.Join(configDir, MinecraftDir[runtime.GOOS], MinecraftLibrariesDir, MinecraftLaunchwrapperLocation)
 	_, err := os.Stat(libPath)
 	if os.IsNotExist(err) {
-		os.MkdirAll(libPath, 0644)
+		os.MkdirAll(libPath, os.ModePerm)
 	}
 
-	file, _ := os.OpenFile(path.Join(libPath, MinecraftLaunchwrapperName), os.O_CREATE|os.O_WRONLY, 0644)
+	file, _ := os.OpenFile(path.Join(libPath, MinecraftLaunchwrapperName), os.O_CREATE|os.O_WRONLY, os.ModePerm)
 	defer file.Close()
 
 	bar := progressbar.DefaultBytes(

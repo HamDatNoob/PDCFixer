@@ -25,7 +25,7 @@ func DownloadForge(mcVersion string) {
 	resp, _ := http.DefaultClient.Do(req)
 	defer resp.Body.Close()
 
-	file, _ := os.OpenFile(path.Join(tempDir, fmt.Sprintf(ForgeFile, ForgeVersion[mcVersion])), os.O_CREATE|os.O_WRONLY, 0644)
+	file, _ := os.OpenFile(path.Join(tempDir, fmt.Sprintf(ForgeFile, ForgeVersion[mcVersion])), os.O_CREATE|os.O_WRONLY, os.ModePerm)
 	defer file.Close()
 
 	bar := progressbar.DefaultBytes(
@@ -53,7 +53,7 @@ func InstallForge(mcVersion string) {
 	forgeVersionDirPath := path.Join(configDir, MinecraftDir[runtime.GOOS], MinecraftVersionsDir, forgeVersion)
 	os.Mkdir(forgeVersionDirPath, os.ModePerm)
 
-	forgeProfileFile, _ := os.OpenFile(path.Join(forgeVersionDirPath, forgeVersion+".json"), os.O_CREATE|os.O_WRONLY, 0644)
+	forgeProfileFile, _ := os.OpenFile(path.Join(forgeVersionDirPath, forgeVersion+".json"), os.O_CREATE|os.O_WRONLY, os.ModePerm)
 	defer forgeProfileFile.Close()
 
 	forgeProfileFile.Write(profileJsonString)
@@ -71,7 +71,7 @@ func InstallForge(mcVersion string) {
 		os.MkdirAll(libDir, os.ModePerm)
 	}
 
-	libraryJarFile, _ := os.OpenFile(path.Join(libDir, libraryJarName), os.O_CREATE|os.O_WRONLY, 0644)
+	libraryJarFile, _ := os.OpenFile(path.Join(libDir, libraryJarName), os.O_CREATE|os.O_WRONLY, os.ModePerm)
 	defer libraryJarFile.Close()
 
 	universalJarStat, _ := universalJar.Stat()
