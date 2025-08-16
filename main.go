@@ -2,9 +2,19 @@ package main
 
 import (
 	"fmt"
-	"github.com/manifoldco/promptui"
 	"os"
+	"strconv"
+
+	"github.com/manifoldco/promptui"
 )
+
+func validateRAM(input string) error {
+	_, err := strconv.Atoi(input)
+	if err != nil {
+		return fmt.Errorf("please enter a valid number")
+	}
+	return nil
+}
 
 func main() {
 	mcVersionSelect := promptui.Select{
@@ -20,6 +30,15 @@ func main() {
 	}
 
 	_, pdcVersion, _ := pdcVersionSelect.Run()
+
+	ramSelect := promptui.Prompt{
+		Label:    "RAM (GB)",
+		Default:  strconv.Itoa(DefaultRAM),
+		Validate: validateRAM,
+	}
+
+	ramString, _ := ramSelect.Run()
+	ramAmount, _ := strconv.Atoi(ramString)
 
 	optifine := false
 	forge := false
@@ -61,7 +80,7 @@ func main() {
 	fmt.Println("Cleaning up temporary files...")
 	os.RemoveAll(tempDir)
 
-	CreateProfile(mcVersion, baseVersion, suffix, profileVersion)
+	CreateProfile(mcVersion, baseVersion, suffix, profileVersion, ramAmount)
 	fmt.Println("PDC has been installed to the Minecraft Launcher")
 	fmt.Scanln()
 }

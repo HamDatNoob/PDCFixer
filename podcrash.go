@@ -2,12 +2,13 @@ package main
 
 import (
 	"fmt"
-	"github.com/schollz/progressbar/v3"
 	"io"
 	"net/http"
 	"os"
 	"path"
 	"runtime"
+
+	"github.com/schollz/progressbar/v3"
 )
 
 func DownloadPDC(mcVersion string) {

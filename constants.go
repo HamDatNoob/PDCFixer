@@ -10,7 +10,7 @@ const ProfileType = "custom"
 
 const ProfileName = "PodcrashPlay %s [%s]"
 
-const JenkinsUrl = "https://jenkins.podcrash.com/job/PodcrashPlay/lastSuccessfulBuild/artifact/"
+const JenkinsUrl = "https://github.com/noidcoffee/PDCPatcher/releases/download/Patched/"
 
 var MinecraftDir = map[string]string{
 	"windows": ".minecraft",
@@ -28,8 +28,8 @@ const FileName = "%s-PodcrashPlay_b1.5.jar"
 const PDCDownloadUrl = JenkinsUrl + FileName
 const PDCDir = "PodcrashPlay"
 
-const DefaultRAM = "2G"
-const JavaArgs = "-Dlog4j2.formatMsgNoLookups=true -XX:HeapDumpPath=MojangTricksIntelDriversForPerformance_javaw.exe_minecraft.exe.heapdump -Xmx%s -XX:+UnlockExperimentalVMOptions -XX:+UseG1GC -XX:G1NewSizePercent=20 -XX:G1ReservePercent=20 -XX:MaxGCPauseMillis=50 -XX:G1HeapRegionSize=32M -Dpdc.basedir=\"%s\" -Dpdc.autoupdater=false -Dpdc.discord.id=708747697452089394 -javaagent:%s -XX:CompileCommand=exclude,java/lang/invoke/LambdaForm$*.invoke*"
+const DefaultRAM = 2
+const JavaArgs = "-Dlog4j2.formatMsgNoLookups=true -XX:HeapDumpPath=MojangTricksIntelDriversForPerformance_javaw.exe_minecraft.exe.heapdump -Xmx%dG -XX:+UnlockExperimentalVMOptions -XX:+UseG1GC -XX:G1NewSizePercent=20 -XX:G1ReservePercent=20 -XX:MaxGCPauseMillis=50 -XX:G1HeapRegionSize=32M -Dpdc.basedir=\"%s\" -Dpdc.autoupdater=false -Dpdc.discord.id=708747697452089394 -javaagent:%s -XX:CompileCommand=exclude,java/lang/invoke/LambdaForm$*.invoke*"
 
 const GameOptions = "Competitive:true\ngames.mineplex:true\ngames.minestrike:true\ngames.bridges:true\ngames.dominate:true\ngames.hypixel:true\ngames.copsvscrims:true"
 
@@ -60,13 +60,15 @@ var OptifineVersion = map[string]string{
 }
 
 var JreDownloads = map[string]string{
-	"windows": "https://cdn.azul.com/zulu/bin/zulu8.78.0.19-ca-jre8.0.412-win_x64.zip",
-	"darwin":  "https://cdn.azul.com/zulu/bin/zulu8.78.0.19-ca-jre8.0.412-macosx_x64.zip",
+	"windows": "https://cdn.azul.com/zulu/bin/zulu8.88.0.19-ca-jre8.0.462-win_x64.zip",
+	"darwin":  "https://cdn.azul.com/zulu/bin/zulu8.88.0.19-ca-jre8.0.462-macosx_x64.zip",
+	"linux":   "https://cdn.azul.com/zulu/bin/zulu8.88.0.19-ca-jre8.0.462-linux_x64.zip",
 }
 
 var JavaPath = map[string]string{
-	"windows": "zulu8.78.0.19-ca-jre8.0.412-win_x64/bin/java.exe",
-	"darwin":  "zulu8.78.0.19-ca-jre8.0.412-macosx_x64/zulu-8.jre/Contents/Home/bin/java",
+	"windows": "zulu8.88.0.19-ca-jre8.0.462-win_x64/bin/java.exe",
+	"darwin":  "zulu8.88.0.19-ca-jre8.0.462-macosx_x64/zulu-8.jre/Contents/Home/bin/java",
+	"linux":   "zulu8.88.0.19-ca-jre8.0.462-linux_x64/bin/java",
 }
 
 var tempDir, _ = os.MkdirTemp("", "pdc")

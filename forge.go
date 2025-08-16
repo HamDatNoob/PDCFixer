@@ -4,12 +4,13 @@ import (
 	"archive/zip"
 	"encoding/json"
 	"fmt"
-	"github.com/schollz/progressbar/v3"
 	"io"
 	"net/http"
 	"os"
 	"path"
 	"runtime"
+
+	"github.com/schollz/progressbar/v3"
 )
 
 // CheckForge assumes that Forge is correctly installed based on the existence of the version directory

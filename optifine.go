@@ -3,7 +3,6 @@ package main
 import (
 	"archive/zip"
 	"fmt"
-	"github.com/schollz/progressbar/v3"
 	"io"
 	"net/http"
 	"os"
@@ -12,6 +11,8 @@ import (
 	"runtime"
 	"strings"
 	"time"
+
+	"github.com/schollz/progressbar/v3"
 )
 
 const OptifineVersionProfileJson = `{

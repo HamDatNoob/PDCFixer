@@ -20,7 +20,7 @@ type Profile struct {
 	Type          string `json:"type"`
 }
 
-func CreateProfile(mcVersion string, baseVersion string, suffix string, profileVersion string) {
+func CreateProfile(mcVersion string, baseVersion string, suffix string, profileVersion string, ram int) {
 	filePath := path.Join(configDir, MinecraftDir[runtime.GOOS], "launcher_profiles.json")
 	jsonFile, _ := os.Open(filePath)
 
@@ -53,7 +53,7 @@ func CreateProfile(mcVersion string, baseVersion string, suffix string, profileV
 		LastUsed:      timestamp,
 		Icon:          ProfileIcon,
 		LastVersionId: profileVersion,
-		JavaArgs:      fmt.Sprintf(JavaArgs, DefaultRAM, pdcDir, agentPath),
+		JavaArgs:      fmt.Sprintf(JavaArgs, ram, pdcDir, agentPath),
 	}
 
 	profiles, _ := launcherProfiles["profiles"].(map[string]interface{})
