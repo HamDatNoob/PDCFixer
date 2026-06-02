@@ -17,16 +17,11 @@ func validateRAM(input string) error {
 }
 
 func main() {
-	mcVersionSelect := promptui.Select{
-		Label: "Minecraft Version",
-		Items: []string{"1.8.8", "1.8.9", "1.9"},
-	}
-
-	_, mcVersion, _ := mcVersionSelect.Run()
+	mcVersion := "1.8.9"
 
 	pdcVersionSelect := promptui.Select{
 		Label: "PDC Version",
-		Items: []string{"Vanilla", "Optifine", "Forge"},
+		Items: []string{"Vanilla", "Forge"},
 	}
 
 	_, pdcVersion, _ := pdcVersionSelect.Run()
@@ -40,12 +35,9 @@ func main() {
 	ramString, _ := ramSelect.Run()
 	ramAmount, _ := strconv.Atoi(ramString)
 
-	optifine := false
 	forge := false
 
 	switch pdcVersion {
-	case "Optifine":
-		optifine = true
 	case "Forge":
 		forge = true
 	}
@@ -53,17 +45,6 @@ func main() {
 	baseVersion := mcVersion
 	suffix := "Vanilla"
 	profileVersion := mcVersion
-
-	if optifine {
-		if CheckOptifine(mcVersion) {
-			DownloadJre()
-			DownloadLaunchwrapper()
-			DownloadOptifine(mcVersion)
-			InstallOptifine(mcVersion)
-		}
-		suffix = "Optifine"
-		profileVersion = fmt.Sprintf(OptifineVersionDir, baseVersion, OptifineVersion[baseVersion])
-	}
 
 	if forge {
 		if CheckForge(mcVersion) {
@@ -82,5 +63,6 @@ func main() {
 
 	CreateProfile(mcVersion, baseVersion, suffix, profileVersion, ramAmount)
 	fmt.Println("PDC has been installed to the Minecraft Launcher")
+	fmt.Println("You must close and re-open the Minecraft Launcher if you haven't")
 	fmt.Scanln()
 }

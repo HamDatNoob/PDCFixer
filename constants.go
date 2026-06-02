@@ -43,22 +43,6 @@ var ForgeVersion = map[string]string{
 	"1.9":   "1.9-12.16.1.1887",
 }
 
-const OptifineFile = "OptiFine-" + OptifineLibraryVersionDir + ".jar"
-const OptifineDownloadFile = "OptiFine_" + OptifineLibraryVersionDir + ".jar"
-const OptifineVersionDir = "%s-OptiFine_HD_U_%s"
-const OptifineLibraryVersionDir = "%s_HD_U_%s"
-const OptifineUrl = "https://optifine.net/"
-const OptifineDownload = OptifineUrl + "adloadx?f=" + OptifineDownloadFile
-const OptifineLibraryDir = "optifine/OptiFine"
-const OptifineLaunchwrapperDir = "optifine/launchwrapper-of/2.2"
-const OptifineLaunchwrapperFile = "launchwrapper-of-2.2.jar"
-
-var OptifineVersion = map[string]string{
-	"1.8.8": "I7",
-	"1.8.9": "M5",
-	"1.9":   "I5",
-}
-
 var JreDownloads = map[string]string{
 	"windows": "https://cdn.azul.com/zulu/bin/zulu8.88.0.19-ca-jre8.0.462-win_x64.zip",
 	"darwin":  "https://cdn.azul.com/zulu/bin/zulu8.88.0.19-ca-jre8.0.462-macosx_x64.zip",
